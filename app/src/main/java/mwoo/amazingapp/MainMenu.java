@@ -57,11 +57,17 @@ public class MainMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Moves user to create a maze screen
+     */
     private void clickedCreate(){
         Intent intent = new Intent(this,CreateMaze.class);
         startActivity(intent);
     }
 
+    /**
+     * Moves user to maze selection screen
+     */
     private void clickedChoose(){
         Intent intent = new Intent(this,ChooseMaze.class);
         startActivity(intent);

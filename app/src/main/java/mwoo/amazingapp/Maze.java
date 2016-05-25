@@ -3,7 +3,6 @@ package mwoo.amazingapp;
 
 import android.content.Context;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Maze{
@@ -20,4 +19,8 @@ public class Maze{
         nRows = GetMaze.getRows();
         nCols = GetMaze.getCols();
     }
+
+    public int getnRows(){return nRows;}
+    public int getnCols(){return nCols;}
+    public char[][] getMaze(){return maze;}
 }

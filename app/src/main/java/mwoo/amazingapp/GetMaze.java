@@ -3,34 +3,34 @@ package mwoo.amazingapp;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  * Created by Sam on 5/19/2016. Modified by Michael
  */
 public class GetMaze {
+
     private static char maze[][];
     private static int nRows;
     private static int nCols;
 
     public static char[][] fromFile(Context context, String fileName) throws FileNotFoundException {
         AssetManager mazeLoader = context.getAssets();
-        BufferedReader scan = null;
+        Scanner scan = null;
         try {
-            scan = new BufferedReader(new InputStreamReader(mazeLoader.open("Mazes/"+fileName)));
-            nRows = Integer.parseInt(scan.readLine());
-            nCols = Integer.parseInt(scan.readLine());
+            scan = new Scanner(mazeLoader.open("Mazes/"+fileName));
+            nRows = scan.nextInt();
+            nCols = scan.nextInt();
 
-            maze = new char[nRows][nCols];
-            //scan.readLine(); // Skip eol
+            maze = new char[nRows+1][nCols+1];
+            scan.nextLine(); // Skip eol
             String s;
 
-            while (scan.readLine() != null) {
+            while (scan.hasNextLine()) {
                 for (int i = 0; i < nRows; ++i) {
-                    s = scan.readLine();
+                    s = scan.nextLine();
                     for (int j = 0; j < nCols; ++j) {
                         maze[i][j] = s.charAt(j);
                     }
@@ -47,14 +47,14 @@ public class GetMaze {
             System.out.println("null found");
             err.printStackTrace();
         }
-        try {
-            scan.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        scan.close();
         return maze; // entries;
     }
 
+    /**
+     * Allows other classes to get the number of rows of the maze
+     * @return the number of rows in the maze
+     */
     public static int getRows(){
         return nRows;
     }
