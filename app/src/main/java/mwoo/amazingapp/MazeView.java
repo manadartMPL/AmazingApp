@@ -54,9 +54,9 @@ public class MazeView extends View {
      * @param heightMeasureSpec Not sure right now
      */
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         height = MeasureSpec.getSize(heightMeasureSpec)/GetMaze.getRows();      //gets the height of the screen which the view is on
         width = MeasureSpec.getSize(widthMeasureSpec)/GetMaze.getCols();        //same as above but for width
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     /**
@@ -67,14 +67,16 @@ public class MazeView extends View {
     @Override
     public void onDraw(Canvas canvas) {
         maze = GetMaze.getMazeLayout();                                             //Gets the chars in the maze to create it
-        for (int col = 0; col < GetMaze.getCols(); col++) {
-            for (int row = 0; row < GetMaze.getRows(); row++) {
+        int mazeRow = GetMaze.getRows();
+        int mazeCol = GetMaze.getCols();
+        for (int col = 0; col < mazeCol; col++) {
+            for (int row = 0; row < mazeRow; row++) {
                 if (maze[row][col] == '*') {                                        //If the space in maze has the * character then draw a blue rectangle to depict wall
                     paint.setColor(Color.BLUE);                                     //Set color of rectangle to blue
                     paint.setStyle(Paint.Style.FILL);                               //Fill in rectangle
-                    canvas.drawRect(col*width, row*height, width, height, paint);   //Draw rectangle at the coordinates
-                }                                                                   //Format is (left point, top point, right point, bottom point, how to draw it)
-            }
+                    canvas.drawRect(col * width, row * height, (width * (col + 1)), (height * (row + 1)), paint);   //Draw rectangle at the coordinates
+                }
+            }                                                                   //Format is (left point, top point, right point, bottom point, how to draw it)
         }
     }
 }
