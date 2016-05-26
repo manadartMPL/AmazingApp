@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -12,10 +13,9 @@ import android.view.View;
  */
 public class MazeView extends View {
     /**
-     * Got this from code online when searching on how build maze. Not sure yet what to do with it. May delete later on.
-     * But its supposed to help when drawing the walls of the maze.
+     * Decides whether app plays itself or user plays maze.
      */
-    private static final float wallsize = 5;
+    private boolean idle;
 
     /**
      * paint is needed so that app knows how to draw the walls, trails, and characters.
@@ -37,13 +37,16 @@ public class MazeView extends View {
      */
     private char[][] maze;
 
+    private int mazeRows;
+
+    private int mazeCols;
     /**
      * Constructor of MazeView
      * @param context not sure right now
-     * @param attset Not sure right now
+     * @param attributeSet Not sure right now
      */
-    public MazeView(Context context, AttributeSet attset) {
-        super(context, attset);
+    public MazeView(Context context, AttributeSet attributeSet) {
+        super(context);
         paint = new Paint();
         paint.setAntiAlias(true);
     }
@@ -66,17 +69,68 @@ public class MazeView extends View {
      */
     @Override
     public void onDraw(Canvas canvas) {
-        maze = GetMaze.getMazeLayout();                                             //Gets the chars in the maze to create it
-        int mazeRow = GetMaze.getRows();
-        int mazeCol = GetMaze.getCols();
-        for (int col = 0; col < mazeCol; col++) {
-            for (int row = 0; row < mazeRow; row++) {
+        getMazeSettings();
+        for (int col = 0; col < mazeCols; col++) {
+            for (int row = 0; row < mazeRows; row++) {
                 if (maze[row][col] == '*') {                                        //If the space in maze has the * character then draw a blue rectangle to depict wall
                     paint.setColor(Color.BLUE);                                     //Set color of rectangle to blue
                     paint.setStyle(Paint.Style.FILL);                               //Fill in rectangle
                     canvas.drawRect(col * width, row * height, (width * (col + 1)), (height * (row + 1)), paint);   //Draw rectangle at the coordinates
+                }                                                                   //Format is (left point, top point, right point, bottom point, how to draw it)
+                else if (maze[row][col] == '#') {
+                    paint.setColor(Color.GREEN);
+                    paint.setStyle(Paint.Style.FILL);
+                    canvas.drawRect(col * width, row * height, (width * (col + 1)), (height * (row + 1)), paint);
                 }
-            }                                                                   //Format is (left point, top point, right point, bottom point, how to draw it)
+                else if (maze[row][col] == '.') {
+                    paint.setColor(Color.RED);
+                    paint.setStyle(Paint.Style.FILL);
+                    canvas.drawRect(col * width, row * height, (width * (col + 1)), (height * (row + 1)), paint);
+                }
+            }
+        }
+    }
+
+    public boolean onTouchEvent(MotionEvent motionEvent){
+        if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+            labyrinth(0,0);
+            return true;
+        }
+        return false;
+    }
+
+    private void getMazeSettings(){
+        maze = GetMaze.getMazeLayout();
+        mazeCols = GetMaze.getCols();
+        mazeRows = GetMaze.getRows();
+    }
+
+    private boolean labyrinth(int x, int y) {
+        // Once x & y are at the solution ( base case ) return true.
+        if (y == mazeRows - 1 && x == mazeCols - 1) {
+            invalidate();
+            return true;}
+        else {
+            try {
+                invalidate();
+                Thread.sleep(64);}
+            catch (InterruptedException e) {}
+
+            if (maze[y][x] == ' ') // May need to perform Recursive calls
+            {
+                maze[y][x] = '#'; // Provide Path at this point
+                // Recursive calls -> Pass base case through multiple recursions
+                if (labyrinth(x + 1, y) == true) {
+                    invalidate();
+                    return true;}
+                if (labyrinth(x, y + 1) == true) {return true;}
+                if (labyrinth(x - 1, y) == true) {return true;}
+                if (labyrinth(x, y - 1) == true) {return true;}
+                if (y == mazeRows && x == mazeCols)
+                    return true;
+                maze[y][x] = '.'; // Denotes backtracking
+            }
+            return false;
         }
     }
 }
