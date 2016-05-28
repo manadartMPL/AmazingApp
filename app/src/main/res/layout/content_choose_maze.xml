@@ -50,7 +50,8 @@
         android:layout_below="@+id/MazeSpinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:checked="false" />
+        android:checked="false"
+        android:onClick="onRadioButtonClicked"/>
 
 
 </RelativeLayout>

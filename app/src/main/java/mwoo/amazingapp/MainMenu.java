@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 
 public class MainMenu extends AppCompatActivity {
-    private ImageButton createMazeButton;
     private ImageButton chooseMazeButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +17,6 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        createMazeButton = (ImageButton) findViewById(R.id.create_maze);
-        createMazeButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                clickedCreate();}
-            });
 
         chooseMazeButton = (ImageButton) findViewById(R.id.choose_maze);
         chooseMazeButton.setOnClickListener(new View.OnClickListener() {
@@ -58,14 +50,6 @@ public class MainMenu extends AppCompatActivity {
     }
 
     /**
-     * Moves user to create a maze screen
-     */
-    private void clickedCreate(){
-        Intent intent = new Intent(this,CreateMaze.class);
-        startActivity(intent);
-    }
-
-    /**
      * Moves user to maze selection screen
      */
     private void clickedChoose(){
@@ -73,3 +57,5 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 }
+
+//libgdx

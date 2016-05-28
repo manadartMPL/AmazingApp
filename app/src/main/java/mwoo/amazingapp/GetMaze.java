@@ -20,7 +20,7 @@ public class GetMaze {
         AssetManager mazeLoader = context.getAssets();
         Scanner scan = null;
         try {
-            scan = new Scanner(mazeLoader.open("Mazes/"+fileName));
+            scan = new Scanner(mazeLoader.open("Mazes/"+fileName+".txt"));
             nRows = scan.nextInt();
             nCols = scan.nextInt();
 
