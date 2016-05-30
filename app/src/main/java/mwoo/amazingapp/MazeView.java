@@ -1,10 +1,13 @@
 package mwoo.amazingapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -71,6 +74,11 @@ public class MazeView extends View {
     private int ActivePointerId = -1;
 
     /**
+     * Tells if the game is finished.
+     */
+    private boolean completed = false;
+
+    /**
      * Constructor of MazeView
      *
      * @param context      Information on what happened in the app before MazeView was called.
@@ -131,7 +139,7 @@ public class MazeView extends View {
                     canvas.drawRect(playerPos[1] * width, (playerPos[0] - 1) * height, (width * (playerPos[1] + 1)), (height * (playerPos[0] - 0)), paint); //Show that above the player is available.
                 }
             }
-            if (playerPos[0] != mazeRows) {
+            if (playerPos[0] != mazeRows-1) {
                 if (maze[playerPos[0] + 1][playerPos[1]] != '*') {
                     canvas.drawRect(playerPos[1] * width, (playerPos[0] + 1) * height, (width * (playerPos[1] + 1)), (height * (playerPos[0] + 2)), paint); //Show that below the player is available.
                 }
@@ -141,12 +149,14 @@ public class MazeView extends View {
                     canvas.drawRect((playerPos[1] - 1) * width, playerPos[0] * height, (width * (playerPos[1] - 0)), (height * (playerPos[0] + 1)), paint);      //Show that to the left of the player is available
                 }
             }
-            if (playerPos[1] != mazeCols) {
+            if (playerPos[1] != mazeCols-1) {
                 if (maze[playerPos[0]][playerPos[1] + 1] != '*') {
                     canvas.drawRect((playerPos[1] + 1) * width, playerPos[0] * height, (width * (playerPos[1] + 2)), (height * (playerPos[0] + 1)), paint);     //Show that to the right of the player is available.
                 }
             }
         }
+        if(completed){
+        gameEnd();}
     }
 
     /**
@@ -223,6 +233,7 @@ public class MazeView extends View {
     private boolean labyrinth(int x, int y) {
         // Once x & y are at the solution ( base case ) return true.
         if (y == mazeRows - 1 && x == mazeCols - 1) {
+            completed = true;
             invalidate();
             return true;}
         else {
@@ -258,7 +269,7 @@ public class MazeView extends View {
 
         if(hori > vert && x > 0){
             int rightRow;                                                       //Player moving right
-            if(playerPos[1] != mazeCols){
+            if(playerPos[1] != mazeCols-1){
             rightRow = playerPos[1]+ 1;}                                        //Get the players column and add 1
             else{return;}
 
@@ -312,7 +323,7 @@ public class MazeView extends View {
         }
         else if(hori < vert && y > 0){
             int downCol;                                                       //Player moving down
-            if(playerPos[0] != mazeRows){
+            if(playerPos[0] != mazeRows-1){
                 downCol = playerPos[0]+ 1;}                                        //Get the players column and add 1 if not at 0 already
             else{return;}
 
@@ -328,6 +339,23 @@ public class MazeView extends View {
                 playerPos[0] = downCol;                                        //Update player position
             }
         }
+        if(playerPos[0] == mazeRows-1 && playerPos[1] == mazeCols-1){ completed = true;}
         invalidate();
+    }
+
+    /**
+     * When maze goal is reached user may return maze selection screen.
+     */
+    private void gameEnd(){
+        AlertDialog.Builder popUp = new AlertDialog.Builder(getContext());
+        popUp.setTitle("Maze Completed");
+        popUp.setNeutralButton("Return to maze selection.", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getContext(),ChooseMaze.class);
+                getContext().startActivity(intent);
+            }
+        });
+        popUp.show();
     }
 }
