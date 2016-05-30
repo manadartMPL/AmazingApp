@@ -10,7 +10,16 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 
 public class MainMenu extends AppCompatActivity {
+
+    /**
+     * Image button that moves the user to the chooseMaze activity.
+     */
     private ImageButton chooseMazeButton;
+
+    /**
+     * Runs when activity is started.
+     * @param savedInstanceState saved sate of the application
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,5 +66,3 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
-//libgdx

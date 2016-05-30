@@ -13,25 +13,14 @@
     tools:showIn="@layout/activity_main_menu"
     android:clickable="true">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/create_maze"
-        android:src="@drawable/create_maze"
-        android:layout_marginTop="163dp"
-        android:adjustViewBounds="false"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="clickedCreate"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/choose_maze"
         android:src="@drawable/start_maze"
-        android:layout_marginTop="26dp"
-        android:layout_below="@+id/create_maze"
-        android:layout_alignLeft="@+id/create_maze"
-        android:layout_alignStart="@+id/create_maze"
-        android:onClick ="clickedChoose"/>
+        android:onClick ="clickedChoose"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="145dp" />
 </RelativeLayout>

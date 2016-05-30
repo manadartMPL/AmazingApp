@@ -18,12 +18,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseMaze extends AppCompatActivity {
+
+    /**
+     * Spinner that holds the maze names.
+     */
     private Spinner MazeSpinner;
+
+    /**
+     * Button that moves the user to the game activity
+     */
     private Button Submitbtn;
+
+    /**
+     * The button that allows the user to switch between idle mode and user playing mode.
+     */
     private RadioButton IdleButton;
+
+    /**
+     * Name of the variable so that the game class can get the maze name through intent.
+     */
     public final static String mazeName = "mwoo.amazingapp.MAZENAME";
+
+    /**
+     * Name of the variable so that the game class can get the boolean variable through intent.
+     */
     public final static String player = "mwoo.amazingapp.PLAYER";
 
+    /**
+     * Creates what is seen on the screen when the activity is started.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +67,9 @@ public class ChooseMaze extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets the maze names on to a spinner so that the user maze choose from there.
+     */
     private void setSpinnerItems(){
         MazeSpinner = (Spinner) findViewById(R.id.MazeSpinner);
         AssetManager assets = getAssets();
@@ -61,6 +88,9 @@ public class ChooseMaze extends AppCompatActivity {
         MazeSpinner.setAdapter(dataAdapter);
     }
 
+    /**
+     * Sets the start maze button to go to the game activity.
+     */
     private void setButton(){
         Submitbtn = (Button) findViewById(R.id.startMaze);
         MazeSpinner = (Spinner) findViewById(R.id.MazeSpinner);
@@ -73,6 +103,9 @@ public class ChooseMaze extends AppCompatActivity {
     });
     }
 
+    /**
+     * Goes to the game activity with the maze name and the decision if the user wants idle mode on.
+     */
     private void clickedChosedMaze(){
         Intent intent = new Intent(this,game.class);
         String chosenMaze = String.valueOf(MazeSpinner.getSelectedItem());
