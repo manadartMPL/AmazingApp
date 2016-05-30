@@ -26,11 +26,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Maze"
+        android:text="Play the Maze"
         android:id="@+id/startMaze"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="110dp" />
+        android:layout_marginTop="64dp"
+        android:layout_below="@+id/MazeSpinner"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,16 +42,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp" />
 
-    <RadioButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Idle Mode"
-        android:id="@+id/IdleButton"
-        android:layout_below="@+id/MazeSpinner"
+        android:text="Watch The Maze"
+        android:id="@+id/Idlebutton"
+        android:layout_below="@+id/startMaze"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:checked="false"
-        android:onClick="onRadioButtonClicked"/>
+        android:layout_marginTop="40dp" />
 
 
 </RelativeLayout>

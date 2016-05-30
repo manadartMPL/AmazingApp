@@ -25,14 +25,14 @@ public class ChooseMaze extends AppCompatActivity {
     private Spinner MazeSpinner;
 
     /**
-     * Button that moves the user to the game activity
+     * Button that lets the user play the maze.
      */
     private Button Submitbtn;
 
     /**
-     * The button that allows the user to switch between idle mode and user playing mode.
+     * The button that allows the user to go into idle mode.
      */
-    private RadioButton IdleButton;
+    private Button IdleButton;
 
     /**
      * Name of the variable so that the game class can get the maze name through intent.
@@ -56,15 +56,8 @@ public class ChooseMaze extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setSpinnerItems();
         setButton();
-        IdleButton = (RadioButton) findViewById(R.id.IdleButton);
-        IdleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!IdleButton.isChecked()){IdleButton.toggle();}
-                else
-                    IdleButton.setChecked(false);
-            }
-        });
+        setIdleButton();
+
     }
 
     /**
@@ -89,27 +82,40 @@ public class ChooseMaze extends AppCompatActivity {
     }
 
     /**
-     * Sets the start maze button to go to the game activity.
+     * Sets the start maze button to go to the game activity with the user playing.
      */
     private void setButton(){
         Submitbtn = (Button) findViewById(R.id.startMaze);
-        MazeSpinner = (Spinner) findViewById(R.id.MazeSpinner);
 
         Submitbtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                clickedChosedMaze();
+                clickedChosedMaze(false);
             }
     });
     }
 
     /**
-     * Goes to the game activity with the maze name and the decision if the user wants idle mode on.
+     * Sets the start maze button to go to the game activity with the app playing.
      */
-    private void clickedChosedMaze(){
+    private void setIdleButton(){
+        IdleButton = (Button) findViewById(R.id.IdleButton);
+
+        IdleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickedChosedMaze(true);
+            }
+        });
+    }
+
+    /**
+     * Goes to the game activity with the maze name and the decision if the user wants idle mode on.
+     * @param idle The choice that user user i playing or the app is.
+     */
+    private void clickedChosedMaze(boolean idle){
         Intent intent = new Intent(this,game.class);
         String chosenMaze = String.valueOf(MazeSpinner.getSelectedItem());
-        boolean idle = IdleButton.isChecked();
         intent.putExtra(mazeName,chosenMaze);
         intent.putExtra(player,idle);
         startActivity(intent);
