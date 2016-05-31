@@ -25,10 +25,11 @@ public class game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         Intent intent = getIntent();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         String mazename = intent.getStringExtra(ChooseMaze.mazeName);
+        toolbar.setTitle(mazename);
+        setSupportActionBar(toolbar);
         idle = intent.getBooleanExtra(ChooseMaze.player,true);
         try {
             GetMaze.fromFile(this,mazename);

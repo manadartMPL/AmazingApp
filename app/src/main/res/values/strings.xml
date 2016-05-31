@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Amazing App</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_create_maze">CreateMaze</string>
     <string name="title_activity_choose_maze">ChooseMaze</string>
-    <string name="title_activity_gridtest">gridtest</string>
     <string name="title_activity_maze">Maze</string>
     <string name="title_activity_game">game</string>
+
 </resources>

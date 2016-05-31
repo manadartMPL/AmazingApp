@@ -20,7 +20,9 @@
         android:id="@+id/choose_maze"
         android:src="@drawable/start_maze"
         android:onClick ="clickedChoose"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="145dp" />
+        android:layout_marginTop="169dp" />
+
+
 </RelativeLayout>
