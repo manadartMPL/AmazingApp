@@ -1,4 +1,4 @@
-package mwoo.amazingapp;
+/*package mwoo.amazingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,19 +7,12 @@ import android.support.v7.widget.Toolbar;
 
 import java.io.FileNotFoundException;
 
-/**
- * Activity that is used when going through the maze to show the progress in either mode.
- */
+
 public class game extends AppCompatActivity {
-    /**
-     * The object where that allows the user to see the maze and play with it.
-     */
+
     private MazeView mazeView;
 
-    /**
-     * Holds the user choice to set idle mode on.
-     */
-    private boolean idle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,3 +33,4 @@ public class game extends AppCompatActivity {
         mazeView.setIdle(idle);
     }
 }
+*/

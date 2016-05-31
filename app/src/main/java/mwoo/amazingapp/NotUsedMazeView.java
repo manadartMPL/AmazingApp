@@ -1,4 +1,4 @@
-package mwoo.amazingapp;
+/*package mwoo.amazingapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,67 +16,57 @@ import android.view.View;
  * Created by Michael on 5/23/2016.
  * The class will draw the maze and will set it to scale based on size of maze and size of screen. The class also hold the recursive function that lets the app play itself and let the player play the map.
  */
-public class MazeView extends View {
+/*public class MazeView extends View {
     /**
      * Decides whether app plays itself or user plays maze.
      */
-    private boolean idle;
+   // private boolean idle;
 
     /**
      * paint is needed so that app knows how to draw the walls, trails, and characters.
      */
-    private Paint paint;
+    //private Paint paint;
 
     /**
      * Width of the screen that the view is on
      */
-    private int width;
+   // private int width;
 
     /**
      * Height of the screen that the view is on
      */
-    private int height;
+  //  private int height;
 
     /**
      * Holds the characters that dictate where the player and their trail is in the maze and the walls.
      */
-    private char[][] maze;
+    //private char[][] maze;
 
     /**
      * Number of rows in the maze.
      */
-    private int mazeRows;
+  //  private int mazeRows;
 
     /**
      * Number of columns in the maze.
      */
-    private int mazeCols;
+//    private int mazeCols;
 
     /**
      * Position of the player in the maze.
      * Index 0 is what row the player is on. Index 1 is the column the player is on.
      */
-    private int[] playerPos = {0, 0};
+    //private int[] playerPos = {0, 0};
 
-    /**
-     * Holds the last place touched's x coordinate. Used in determining where the player wants to go.
-     */
-    private float lastTouchedX;
 
-    /**
-     * Holds the last place touched's y coordinate. Used in determining where the player wants to go.
-     */
-    private float lastTouchedY;
 
-    /**
-     * Used in getting the player's swipes and them dragging their fingers. Allows for multiple fingers on the screen.
-     */
-    private int ActivePointerId = -1;
+
+
 
     /**
      * Tells if the game is finished.
      */
-    private boolean completed = false;
+    //private boolean completed = false;
 
     /**
      * Constructor of MazeView
@@ -84,7 +74,7 @@ public class MazeView extends View {
      * @param context      Information on what happened in the app before MazeView was called.
      * @param attributeSet A collection of attributes used in the super constructor.
      */
-    public MazeView(Context context, AttributeSet attributeSet) {
+    /*public MazeView(Context context, AttributeSet attributeSet) {
         super(context,attributeSet);
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -95,14 +85,14 @@ public class MazeView extends View {
      * Sets the game mode
      * @param choice whether or not idle mode is on.
      */
-    public void setIdle(boolean choice){idle = choice;}
+    /*public void setIdle(boolean choice){idle = choice;}
     /**
      * Gets the measurements of the screen. This method is repeatedly called while MazeView is active
      *
      * @param widthMeasureSpec  Not sure right now
      * @param heightMeasureSpec Not sure right now
      */
-    protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
+    /*protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         height = MeasureSpec.getSize(heightMeasureSpec) / GetMaze.getRows();      //gets the height of the screen which the view is on
         width = MeasureSpec.getSize(widthMeasureSpec) / GetMaze.getCols();        //same as above but for width
@@ -113,7 +103,7 @@ public class MazeView extends View {
      * Blue denotes walls, Green denotes where the player/app has been, and Red denotes any backtracking the player/app did, yellow denotes where the player is, and light gray denotes any places the player can move to.
      * @param canvas Where the maze is being drawn on.
      */
-    @Override
+   /* @Override
     public void onDraw(Canvas canvas) {
         getMazeSettings();
         for (int col = 0; col < mazeCols; col++) {
@@ -169,7 +159,7 @@ public class MazeView extends View {
      * @param motionEvent gets the motion that the user does.
      * @return A boolean that says an event occurred.
      */
-    public boolean onTouchEvent(MotionEvent motionEvent) {
+    /*public boolean onTouchEvent(MotionEvent motionEvent) {
        if (idle) {
            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                  labyrinth(0, 0);
@@ -178,44 +168,7 @@ public class MazeView extends View {
             return false;
         }
         else{
-            final int action = MotionEventCompat.getActionMasked(motionEvent);
 
-            switch (action) {
-                case MotionEvent.ACTION_DOWN: {
-                    final int ptrIndex = MotionEventCompat.getActionIndex(motionEvent);
-                    final float x = MotionEventCompat.getX(motionEvent, ptrIndex);
-                    final float y = MotionEventCompat.getY(motionEvent, ptrIndex);
-
-                    // Remember where we started (for dragging)
-                    lastTouchedX = x;
-                    lastTouchedY = y;
-                    // Save the ID of this pointer (for dragging)
-                    ActivePointerId = MotionEventCompat.getPointerId(motionEvent, 0);
-                    break;
-                }
-
-                case MotionEvent.ACTION_MOVE: {
-                    // Find the index of the active pointer and fetch its position
-                    final int pointerIndex = MotionEventCompat.findPointerIndex(motionEvent, ActivePointerId);
-
-                    final float x = MotionEventCompat.getX(motionEvent, pointerIndex);
-                    final float y = MotionEventCompat.getY(motionEvent, pointerIndex);
-
-                    // Calculate the distance moved
-                    final float dx = x - lastTouchedX;
-                    final float dy = y - lastTouchedY;
-
-                    playerMove(dx,dy);
-                    invalidate();
-
-                    // Remember this touch position for the next move event
-                    lastTouchedX = x;
-                    lastTouchedY = y;
-
-                    break;
-                }
-
-            }
             return true;
         }
     }
@@ -223,7 +176,7 @@ public class MazeView extends View {
     /**
      * Set the maze, number of rows in the maze, number of columns in the maze in the variables in this view.
      */
-    private void getMazeSettings(){
+    /*private void getMazeSettings(){
         maze = GetMaze.getMazeLayout();
         mazeCols = GetMaze.getCols();
         mazeRows = GetMaze.getRows();
@@ -235,7 +188,7 @@ public class MazeView extends View {
      * @param y is the starting column
      * @return A boolean that tells whether or not the maze is completed by the app.
      */
-    private boolean labyrinth(int x, int y) {
+    /*private boolean labyrinth(int x, int y) {
         // Once x & y are at the solution ( base case ) return true.
         if (y == mazeRows - 1 && x == mazeCols - 1) {
             completed = true;
@@ -261,14 +214,14 @@ public class MazeView extends View {
             }
             return false;
         }
-    }
+    }*/
 
     /**
      * The method that is called to make the player move throughout the maze.
      * @param x is movement on the x axis.
      * @param y is movement on the y axis.
      */
-    public void playerMove(float x, float y){
+   /* public void playerMove(float x, float y){
         float hori = Math.abs(x);                                               //Gets the absolute value of x to determine which direction the player is going.
         float vert = Math.abs(y);                                               //Same thing as the x
 
@@ -346,12 +299,12 @@ public class MazeView extends View {
         }
         if(playerPos[0] == mazeRows-1 && playerPos[1] == mazeCols-1){ completed = true;}
         invalidate();
-    }
+    }*/
 
     /**
      * When maze goal is reached user may return maze selection screen.
      */
-    private void gameEnd(){
+   /* private void gameEnd(){
         AlertDialog.Builder popUp = new AlertDialog.Builder(getContext());
         popUp.setTitle("Maze Completed");
         popUp.setNeutralButton("Return to maze selection.", new DialogInterface.OnClickListener(){
@@ -363,4 +316,4 @@ public class MazeView extends View {
         });
         popUp.show();
     }
-}
+}*/

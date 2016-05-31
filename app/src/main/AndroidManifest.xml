@@ -25,10 +25,7 @@
             android:name=".ChooseMaze"
             android:label="@string/title_activity_choose_maze"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".game"
-            android:label="@string/title_activity_game"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Maze" android:label="Maze"> </activity>
     </application>
 
 </manifest>

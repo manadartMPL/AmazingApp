@@ -5,6 +5,7 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,16 +37,6 @@ public class ChooseMaze extends AppCompatActivity {
      * The button that allows the user to go into idle mode.
      */
     private Button IdleButton;
-
-    /**
-     * Name of the variable so that the game class can get the maze name through intent.
-     */
-    public final static String mazeName = "mwoo.amazingapp.MAZENAME";
-
-    /**
-     * Name of the variable so that the game class can get the boolean variable through intent.
-     */
-    public final static String player = "mwoo.amazingapp.PLAYER";
 
     /**
      * Creates what is seen on the screen when the activity is started.
@@ -117,10 +108,11 @@ public class ChooseMaze extends AppCompatActivity {
      * @param idle The choice that user user i playing or the app is.
      */
     private void clickedChosedMaze(boolean idle){
-        Intent intent = new Intent(this,game.class);
+        Intent intent = new Intent(this,Maze.class);
         String chosenMaze = String.valueOf(MazeSpinner.getSelectedItem());
-        intent.putExtra(mazeName,chosenMaze);
-        intent.putExtra(player,idle);
+        intent.putExtra("Maze",chosenMaze);
+        intent.putExtra("player",idle);
+        Log.d("Sam", "ChooseMaze");
         startActivity(intent);
     }
 }

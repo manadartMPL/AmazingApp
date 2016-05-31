@@ -2,6 +2,7 @@ package mwoo.amazingapp;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class GetMaze {
      * @throws FileNotFoundException In case the file is not in the app.
      */
     public static char[][] fromFile(Context context, String fileName) throws FileNotFoundException {
+        Log.d("Sam", "GetMaze");
         AssetManager mazeLoader = context.getAssets();
         Scanner scan = null;
         try {
@@ -61,11 +63,8 @@ public class GetMaze {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        catch (NullPointerException err){
-            System.out.println("null found");
-            err.printStackTrace();
-        }
         scan.close();
+        //print();
         return maze; // entries;
     }
 
@@ -90,4 +89,16 @@ public class GetMaze {
      * @return the characters that depict the maze.
      */
     public static char[][] getMazeLayout(){return maze;}
+
+    static void print() {
+        for (int i = 0; i < nRows; ++i) {
+            for (int j = 0; j < nCols; ++j) {
+                //System.out.print(maze[i][j]);
+                Log.d("A", "" + maze[i][j]);
+                //Log.System.out.print(maze[i][j]);
+            }
+            System.out.println("");
+        }
+        return;
+    }
 }
