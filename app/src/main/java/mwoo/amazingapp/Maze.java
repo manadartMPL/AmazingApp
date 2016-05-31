@@ -5,15 +5,12 @@ package mwoo.amazingapp;
  */
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -31,6 +28,11 @@ public class Maze extends Activity {
      */
     MazeView mazeView;
 
+
+    /**
+     * What is created when app goes to maze activity
+     * @param savedInstanceState Information before state was changed.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,21 +40,82 @@ public class Maze extends Activity {
         setContentView(mazeView);
     }
 
+    /**
+     * How the maze is depicted.
+     */
     class MazeView extends SurfaceView implements Runnable {
+        /**
+         * The characters that depict the maze.
+         */
         private char[][] maze;
+
+        /**
+         * Number of rows in the maze
+         */
         private int mazeRows;
+
+        /**
+         * Number of columns in the maze.
+         */
         private int mazeCols;
+
+        /**
+         * Width of what the blocks should be.
+         */
         int width;
+
+        /**
+         * Height of the block in the maze.
+         */
         int height;
+        /**
+         * What has happened in the app.
+         */
         Context context;
+
+        /**
+         * Need for thread manipulation
+         */
         Thread gameThread = null;
+
+        /**
+         * What is holding the canvas
+         */
         SurfaceHolder ourHolder;
+
+        /**
+         * Whether or not the app is playing itself still.
+         */
         volatile boolean playing;
+
+        /**
+         * Where to draw the maze on.
+         */
         Canvas canvas;
+
+        /**
+         * How to draw the maze
+         */
         Paint paint;
+
+        /**
+         * Frames per second while app is running
+         */
         long fps;        // frame per second
+
+        /**
+         * Number of the frame that is running
+         */
         private long timeThisFrame;
+
+        /**
+         * If the app is moving in the maze.
+         */
         boolean isMoving = true;
+
+        /**
+         * If the maze is going through the maze by itself.
+         */
         boolean mazeRunning = false;
         /**
          * Holds the user choice to set idle mode on.
@@ -83,8 +146,10 @@ public class Maze extends Activity {
          */
         private int ActivePointerId = -1;
 
-        private boolean confirmexit = false;
-
+        /**
+         * Constructor for mazeView
+         * @param context what has happened in the maze.
+         */
         public MazeView(Context context) {
             super(context);
             this.context = context;
@@ -95,6 +160,9 @@ public class Maze extends Activity {
             initialize();
         }
 
+        /**
+         * intializes the variables in mazeview
+         */
         private void initialize() {
             Bundle choice = getIntent().getExtras();
             if (choice == null) {
@@ -115,12 +183,20 @@ public class Maze extends Activity {
             idle = choice.getBoolean("player");
         }
 
+        /**
+         * Gets measurements of the screen.
+         * @param widthMeasureSpec measurement of the screen's width
+         * @param heightMeasureSpec measurement of the screen's height
+         */
         protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             height = View.MeasureSpec.getSize(heightMeasureSpec) / GetMaze.getRows();      //gets the height of the screen which the view is on
             width = View.MeasureSpec.getSize(widthMeasureSpec) / GetMaze.getCols();        //same as above but for width
         }
 
+        /**
+         * Runs the app when mazeview is active. Depending on the state of the app it will do different stuff.
+         */
         @Override
         public void run() {
             Log.d("Sam", "168 run()" + playing);
@@ -163,6 +239,9 @@ public class Maze extends Activity {
             }
         }
 
+        /**
+         * Updates screen
+         */
         public void update() {
             Log.d("Sam", "196 update()");
             if (isMoving) {
@@ -171,7 +250,12 @@ public class Maze extends Activity {
             }
         }
 
-
+        /**
+         * App goes through maze recursively.
+         * @param x starting row
+         * @param y strating column
+         * @return whether or not maze is completable.
+         */
         private boolean labyrinth(int x, int y) {
             draw();
 
@@ -213,6 +297,9 @@ public class Maze extends Activity {
         }
 
 
+        /**
+         * Draws the maze with user or app playing it.
+         */
         public void draw() {
             Log.d("Sam", "334 draw()");
             if (ourHolder.getSurface().isValid()) {
@@ -356,7 +443,7 @@ public class Maze extends Activity {
                     playerPos[0] = downCol;                                        //Update player position
                 }
             }
-            if (playerPos[0] == mazeRows && playerPos[1] == mazeCols) {
+            if (playerPos[0] == mazeRows-1 && playerPos[1] == mazeCols-1) {
                 completed = true;
             }
             draw();
