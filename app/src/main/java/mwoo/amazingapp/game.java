@@ -7,6 +7,9 @@ import android.support.v7.widget.Toolbar;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Activity that is used when going through the maze to show the progress in either mode.
+ */
 public class game extends AppCompatActivity {
     /**
      * The object where that allows the user to see the maze and play with it.
@@ -24,7 +27,6 @@ public class game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mazeView = (MazeView) findViewById(R.id.maze_view);
         Intent intent = getIntent();
         String mazename = intent.getStringExtra(ChooseMaze.mazeName);
         idle = intent.getBooleanExtra(ChooseMaze.player,true);
@@ -33,11 +35,7 @@ public class game extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        mazeView = (MazeView) findViewById(R.id.maze_view);
+        mazeView.setIdle(idle);
     }
-
-    /**
-     * Allows mazeView to switch between user playing and app playing it self.
-     * @return Whether or not the user choose to go on idle mode
-     */
-    public boolean getIdle(){return idle;}
 }

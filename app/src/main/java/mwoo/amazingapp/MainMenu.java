@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+/**
+ * The screen that shows when launching the game. User will click on the button to their maze and select which mode to play.
+ */
 public class MainMenu extends AppCompatActivity {
 
     /**

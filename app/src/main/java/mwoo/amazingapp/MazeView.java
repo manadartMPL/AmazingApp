@@ -88,9 +88,14 @@ public class MazeView extends View {
         super(context,attributeSet);
         paint = new Paint();
         paint.setAntiAlias(true);
-        idle = ((game)getContext()).getIdle();
     }
 
+
+    /**
+     * Sets the game mode
+     * @param choice whether or not idle mode is on.
+     */
+    public void setIdle(boolean choice){idle = choice;}
     /**
      * Gets the measurements of the screen. This method is repeatedly called while MazeView is active
      *

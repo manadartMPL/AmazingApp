@@ -17,6 +17,9 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activity that presents the user to choose a maze to play and which mode to play in.
+ */
 public class ChooseMaze extends AppCompatActivity {
 
     /**
