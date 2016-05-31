@@ -83,6 +83,7 @@ public class Maze extends Activity {
          */
         private int ActivePointerId = -1;
 
+        private boolean confirmexit = false;
 
         public MazeView(Context context) {
             super(context);
@@ -159,9 +160,6 @@ public class Maze extends Activity {
                 if (timeThisFrame > 0) {
                     fps = 1000 / timeThisFrame;
                 }
-            }
-            if (completed) {
-               gameEnd();
             }
         }
 
@@ -379,8 +377,12 @@ public class Maze extends Activity {
             popUp.show();*/
            Intent intent = new Intent(getContext(), ChooseMaze.class);
            getContext().startActivity(intent);
+
         }
 
+        /**
+         * App is now paused.
+         */
         public void pause() {
             Log.d("Sam", "397 pause()");
             playing = false;
@@ -391,6 +393,9 @@ public class Maze extends Activity {
             }
         }
 
+        /**
+         * App was paused and now resumes.
+         */
         public void resume() {
             Log.d("Sam", "410 resume()");
             playing = true;
@@ -398,6 +403,12 @@ public class Maze extends Activity {
             gameThread.start();
         }
 
+
+        /**
+         * Gets touchevent and acts according to state the app is in.
+         * @param motionEvent the touch event provided by user.
+         * @return whether or not the touchevent occurred
+         */
         @Override
         public boolean onTouchEvent(MotionEvent motionEvent) {
             Log.d("Sam", "420 onTouchEvent()");
@@ -445,7 +456,6 @@ public class Maze extends Activity {
                         final float dy = y - lastTouchedY;
 
                         playerMove(dx, dy);
-                        invalidate();
 
                         // Remember this touch position for the next move event
                         lastTouchedX = x;
@@ -454,6 +464,12 @@ public class Maze extends Activity {
                         break;
                     }
 
+                }
+            }
+            if(completed){
+                switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_UP:
+                        gameEnd();
                 }
             }
             return true;
