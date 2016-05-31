@@ -161,7 +161,7 @@ public class Maze extends Activity {
                 }
             }
             if (completed) {
-               // gameEnd();
+               gameEnd();
             }
         }
 
@@ -181,6 +181,7 @@ public class Maze extends Activity {
             // Once x & y are at the solution ( base case ) return true.
             if (y == mazeRows - 1 && x == mazeCols - 1) {
                 completed = true;
+                playing = false;
                 return true;
             } else {
                 try {
@@ -357,7 +358,7 @@ public class Maze extends Activity {
                     playerPos[0] = downCol;                                        //Update player position
                 }
             }
-            if (playerPos[0] == mazeRows - 1 && playerPos[1] == mazeCols - 1) {
+            if (playerPos[0] == mazeRows && playerPos[1] == mazeCols) {
                 completed = true;
             }
             draw();
@@ -366,18 +367,19 @@ public class Maze extends Activity {
         /**
          * When maze goal is reached user may return maze selection screen.
          */
-       /* private void gameEnd() {
-            AlertDialog.Builder popUp = new AlertDialog.Builder(getContext());
+       private void gameEnd() {
+            /*AlertDialog.Builder popUp = new AlertDialog.Builder(getContext());
             popUp.setTitle("Maze Completed");
             popUp.setNeutralButton("Return to maze selection.", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(getContext(), ChooseMaze.class);
-                    getContext().startActivity(intent);
+
                 }
             });
-            popUp.show();
-        }*/
+            popUp.show();*/
+           Intent intent = new Intent(getContext(), ChooseMaze.class);
+           getContext().startActivity(intent);
+        }
 
         public void pause() {
             Log.d("Sam", "397 pause()");
